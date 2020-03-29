@@ -16,6 +16,7 @@ export class PushService {
   ];
 
   pushListener = new EventEmitter<OSNotificationPayload>();
+  userId: string;
 
   constructor( private oneSignal: OneSignal,
                private storage: Storage) {
@@ -45,6 +46,11 @@ export class PushService {
 
     });
     
+    this.oneSignal.getIds().then( info => {
+      this.userId = info.userId;
+      console.log('userID', this.userId);
+    });
+
     this.oneSignal.endInit();
   
   }
@@ -84,5 +90,13 @@ export class PushService {
   async getMessages() {
     await this.loadMessages();
     return [...this.messages];
+  }
+
+  async deleteMessages() {
+    await this.storage.clear();
+    this.messages = [];
+    this.storeMessages();
+
+    // this.storage.remove('messages');
   }
 }

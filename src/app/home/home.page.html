@@ -1,16 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      PushApp
     </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="deleteMessages()"  color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-list-header>
-      <ion-label>Pushes</ion-label>
+      <ion-label>UserID</ion-label>
     </ion-list-header>
+
+    <ion-item>
+      <ion-label>{{ pushService.userId }}</ion-label>
+    </ion-item>
     <ion-item *ngFor="let push of messages">
       <ion-label>
         <h3> {{ push.title }}</h3>

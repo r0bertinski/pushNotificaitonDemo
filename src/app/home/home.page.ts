@@ -10,7 +10,7 @@ import { OSNotificationPayload } from '@ionic-native/onesignal/ngx';
 export class HomePage implements OnInit {
 
   messages: OSNotificationPayload[] = [];
-  constructor( private pushService: PushService,
+  constructor( public pushService: PushService,
                private applicationRef: ApplicationRef) {}
 
   ngOnInit() {
@@ -24,5 +24,10 @@ export class HomePage implements OnInit {
   async ionViewWillEnter() {
     this.messages = await this.pushService.getMessages();
     console.log('Will Enter - load messages', this.messages);
+  }
+
+  async deleteMessages() {
+    await this.pushService.deleteMessages();
+    this.messages = [];
   }
 }
